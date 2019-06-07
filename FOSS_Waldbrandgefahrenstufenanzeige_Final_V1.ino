@@ -31,8 +31,8 @@
 
 //#====== Definition des Netzwerknamens und -schlüssels ======================#
 
-const char* ssid = "Lokal_zum_Parsen";
-const char* password = "Arduino&ESP32";
+const char* ssid = "DeinNetzwerk";
+const char* password = "DeinPasswort";
 WiFiClientSecure client;
 
 //#====== Definition der genutzen LED Menge und des LED Datenpins ============#
