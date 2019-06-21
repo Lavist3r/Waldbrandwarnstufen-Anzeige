@@ -45,10 +45,9 @@ unabhängig von der geltenden Waldbrandstufe.
 Die Forstbehörden der Länder leiten die Waldbrandwarnstufen aus dem Waldbrandbrandgefahrenindex Vorhersagemodell des Deutschen
 Wetterdienstes ab. 
 
-# Waldbrandgefahrenindex WBI (Quelle: DWD):
+# Waldbrandgefahrenindex WBI (Quelle: DWD)
 
-Während der Waldbrandsaison in Deutschland, welche in der Regel von März bis Ok-
-tober andauert, stellt der DWD täglich aktualisierte Waldbrandgefahrenprognosen in 
+Während der Waldbrandsaison in Deutschland, welche in der Regel von März bis Oktober andauert, stellt der DWD täglich aktualisierte Waldbrandgefahrenprognosen in 
 Form von Indizes bereit. Der Zeitraum kann im Jahr in Abhängigkeit von der aktuellen 
 Witterung unter- oder überschritten werden. Der WBI dient den verantwortlichen Lan-
 desbehörden zur Einschätzung der Waldbrandgefahr sowie zur Ausgabe von Warnun-
