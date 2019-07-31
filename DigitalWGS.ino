@@ -29,8 +29,8 @@
 #include <NeoPixelBus.h>
 
 //#====== Definition des Netzwerknamens und -schlüssels ======================#
-const char* ssid = "David";
-const char* password = "7ujm/UJM";
+const char* ssid = "DeinNetzwerk";
+const char* password = "DeinPasswort";
 WiFiClientSecure client;
 
 //#====== Definition der genutzen LED Menge und des LED Datenpins ============#
