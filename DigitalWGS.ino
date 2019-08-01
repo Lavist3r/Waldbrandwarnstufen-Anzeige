@@ -50,48 +50,45 @@ RgbColor na     (0, 0, 0);
 
 //#====== Definition der Variable gefahr für die Waldbrandgefahrenstufe ======# 
 int gefahr = 0;
-int gefahr_cache = 0;
 
 //#====== POST (Power On Self Test) ==========================================#
 void post() {
+  /*Beim einschalten der Anzeige wird ein Test der LEDs durchgeführt.*/
+  
+  /*Zuerst leuchten LED 1-3 in grün.*/
   strip.SetPixelColor(0, green);
   strip.SetPixelColor(1, green);
   strip.SetPixelColor(2, green);
   strip.Show();
   delay(1000);
-
+  
+  /*Nach einer Sekunde leuchten anschließend LED 4-6 in gelb.*/
   strip.SetPixelColor(3, yellow);
   strip.SetPixelColor(4, yellow);
   strip.SetPixelColor(5, yellow);
   strip.Show();
   delay(1000);
   
+  /*Nach zwei Sekunden leuchten anschließend LED 7-9* in orange.*/
   strip.SetPixelColor(6, orange);
   strip.SetPixelColor(7, orange);
   strip.SetPixelColor(8, orange);
   strip.Show();
   delay(1000);
   
+  /*Nach drei Sekunden leuchten anschließend LED 10-12 in rot.*/
   strip.SetPixelColor(9, red);
   strip.SetPixelColor(10, red);
   strip.SetPixelColor(11, red);
   strip.Show();
   delay(1000);
   
+  /*Nach vier Sekunden leuchten anschließend LED 13-15 in lila.*/
   strip.SetPixelColor(12, purple);
   strip.SetPixelColor(13, purple);
   strip.SetPixelColor(14, purple);
   strip.Show();
   delay(1000);
-}
-
-//#====== Zwischenspeichern der Gefahrenstufe Variable (WIP) =================#
-void cache() {
-  if (gefahr <= gefahr_cache){
-    int gefahr = gefahr_cache;
-    Serial.println(gefahr_cache);
-    Serial.println(gefahr);
-    }
 }
 
 //#====== Setup (einrichtung) des Programms ==================================#
@@ -117,68 +114,46 @@ void setup() {
   Serial.print("IP Addresse: ");
   Serial.println(WiFi.localIP());
 
-  strip.Show();  
-  
-  
+  strip.Show();
   post();
 }
 
 //#====== Loop (schleife) des Programms ======================================#
 void loop() {
-  cache();
   HTTPClient http;
-  /*Bezugsquelle der Waldbrandgefahrenstufe, anpassen auf Bundesland*/
+  /*Bezugsquelle der Waldbrandgefahrenstufe, anpassen auf Bundesland.*/
   http.begin("https://mlul.brandenburg.de/wgs/wgs_bb.xml/");
   
   if (http.GET() == HTTP_CODE_OK)
   {
-    /*Auslesen des Seitenquelltextes*/
+    /*Auslesen des Seitenquelltextes.*/
     String xml = http.getString();
-    /*Quelltext wird in Konsole geschrieben*/
+    
+    /*Quelltext wird in Konsole geschrieben.*/
     Serial.println(xml);
-    /*Landkreis und Waldbrandgefahrenstufe wird aus Quelltext gelesen (parsing)*/
+    
+    /*Landkreis und Waldbrandgefahrenstufe wird aus Quelltext gelesen (parsing).*/
     String landkreis = xml.substring(227, 236);
-    /*Waldbrandgefahrenstufe wird von String zum Integer konvertiert*/
+   
+    /*Waldbrandgefahrenstufe wird von String zum Integer konvertiert.*/
     int gefahr = xml.substring(238, 239).toInt();
     int gefahr_cache = gefahr;
-    /*Informationen werden als Satz in Konsole bereitgestellt*/
+    
+    /*Informationen werden als Satz in Konsole bereitgestellt.*/
     Serial.print("[");
     Serial.print("Die Waldbrandgefahrenstufe für den Landkreis " + landkreis + " beträgt " + gefahr);
     Serial.println("]");
     Serial.println();
     Serial.println(gefahr_cache);
     
-    /*Wenn die Waldbrandgefahrenstufe gleich null ist, leuchtet keine LED*/
+    /*Wenn die Waldbrandgefahrenstufe gleich null ist, leuchtet keine LED.*/
     if (gefahr == 0) {
-      
       goto warten;
-      
-    /*strip.SetPixelColor(0, black);
-      strip.SetPixelColor(1, black);
-      strip.SetPixelColor(2, black);
-      
-      strip.SetPixelColor(3, black);
-      strip.SetPixelColor(4, black);
-      strip.SetPixelColor(5, black);
-      
-      strip.SetPixelColor(6, black);
-      strip.SetPixelColor(7, blue);
-      strip.SetPixelColor(8, black);
-      
-      strip.SetPixelColor(9, black);
-      strip.SetPixelColor(10, black);
-      strip.SetPixelColor(11, black);
-      
-      strip.SetPixelColor(12, black);
-      strip.SetPixelColor(13, black);
-      strip.SetPixelColor(14, black);
-      
-      strip.Show();*/
     }
     else {
 
     }
-    /*Wenn die Waldbrandgefahrenstufe gleich eins ist, leuchtet die erste LED in grün*/
+    /*Wenn die Waldbrandgefahrenstufe gleich eins ist, leuchten LED 1-3 in grün.*/
     if (gefahr == 1) {
       strip.SetPixelColor(0, green);
       strip.SetPixelColor(1, green);
@@ -205,7 +180,7 @@ void loop() {
     else {
       
     }
-    /*Wenn die Waldbrandgefahrenstufe gleich zwei ist, leuchten die erste und zweite LED in gelb*/
+    /*Wenn die Waldbrandgefahrenstufe gleich zwei ist, leuchten LED 1-6 in gelb.*/
     if (gefahr == 2) {
       strip.SetPixelColor(0, yellow);
       strip.SetPixelColor(1, yellow);
@@ -232,7 +207,7 @@ void loop() {
     else {
 
     }
-    /*Wenn die Waldbrandgefahrenstufe gleich drei ist, leuchten die erste, zweite und dritte LED in orange*/
+    /*Wenn die Waldbrandgefahrenstufe gleich drei ist, leuchten LED 1-9 in orange.*/
     if (gefahr == 3) {
       strip.SetPixelColor(0, orange);
       strip.SetPixelColor(1, orange);
@@ -259,7 +234,7 @@ void loop() {
     else {
 
     }
-    /*Wenn die Waldbrandgefahrenstufe gleich vier ist, leuchten die erste, zweite, dritte und vierte LED in rot*/
+    /*Wenn die Waldbrandgefahrenstufe gleich vier ist, leuchten LED 1-12 LED in rot.*/
     if (gefahr == 4) {
       strip.SetPixelColor(0, red);
       strip.SetPixelColor(1, red);
@@ -286,7 +261,7 @@ void loop() {
     else {
 
     }
-    /*Wenn die Waldbrandgefahrenstufe gleich fünf ist, leuchten alle fünf LEDs in Lila*/
+    /*Wenn die Waldbrandgefahrenstufe gleich fünf ist, leuchten LED 1-15 in lila.*/
     if (gefahr == 5) {
       strip.SetPixelColor(0, purple);
       strip.SetPixelColor(1, purple);
@@ -315,10 +290,18 @@ void loop() {
     }
 
   }
-  /*Kann der ESP32 keine verbindung mit dem Internet oder Bezugsquelle herstellen, wird eine Fehlermeldung in der Konsole ausgegeben*/ 
-  else Serial.println("Verbindung mit \"MLUL Brandenburg\" nicht möglich!");
+  /*Kann der ESP32 keine verbindung mit der Bezugsquelle herstellen, wird eine Fehlermeldung in der Konsole ausgegeben.
+    Eine blau blinkende LED symbolisiert den Zustand.*/ 
+  else Serial.println("Verbindung mit \"MLUL Brandenburg\" nicht möglich!");{
+    strip.SetPixelColor(7, blue);
+    strip.Show();
+    delay(1000);
+    strip.SetPixelColor(7, black);
+    strip.Show();
+  }
   http.end();
+  
   /*Im Zeitraum von einer Stunde werden die Daten aktualisiert*/
   warten:
-  delay(600000);
+  delay(3600000);
 }
