@@ -137,14 +137,11 @@ void loop() {
    
     /*Waldbrandgefahrenstufe wird von String zum Integer konvertiert.*/
     int gefahr = xml.substring(238, 239).toInt();
-    int gefahr_cache = gefahr;
     
     /*Informationen werden als Satz in Konsole bereitgestellt.*/
     Serial.print("[");
     Serial.print("Die Waldbrandgefahrenstufe für den Landkreis " + landkreis + " beträgt " + gefahr);
     Serial.println("]");
-    Serial.println();
-    Serial.println(gefahr_cache);
     
     /*Wenn die Waldbrandgefahrenstufe gleich null ist, leuchtet keine LED.*/
     if (gefahr == 0) {
